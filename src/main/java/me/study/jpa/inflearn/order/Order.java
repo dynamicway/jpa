@@ -1,7 +1,7 @@
-package me.study.inflearn.order.order;
+package me.study.jpa.inflearn.order;
 
 import lombok.Getter;
-import me.study.inflearn.order.member.Member;
+import me.study.jpa.inflearn.member.Member;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -10,19 +10,18 @@ import java.time.ZonedDateTime;
 @Table(name = "ORDERS")
 @Getter
 public class Order {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @Column(name = "MEMBER_ID")
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     private ZonedDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
-    private Status orderStatus;
+    private Status status;
 
     public enum Status {
         ORDER,

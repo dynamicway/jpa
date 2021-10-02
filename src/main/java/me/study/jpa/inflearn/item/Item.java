@@ -1,4 +1,4 @@
-package me.study.inflearn.order.item;
+package me.study.jpa.inflearn.item;
 
 import lombok.Getter;
 
@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Table(name = "ITEM")
 @Getter
 public class Item {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,5 +17,4 @@ public class Item {
     private Integer price;
 
     private Integer stockQuantity;
-
 }

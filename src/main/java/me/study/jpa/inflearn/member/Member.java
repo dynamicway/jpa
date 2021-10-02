@@ -1,4 +1,4 @@
-package me.study.inflearn.order.member;
+package me.study.jpa.inflearn.member;
 
 import lombok.Getter;
 

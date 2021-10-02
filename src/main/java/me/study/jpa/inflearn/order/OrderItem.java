@@ -1,7 +1,7 @@
-package me.study.inflearn.order.order;
+package me.study.jpa.inflearn.order;
 
 import lombok.Getter;
-import me.study.inflearn.order.item.Item;
+import me.study.jpa.inflearn.item.Item;
 
 import javax.persistence.*;
 
@@ -14,11 +14,11 @@ public class OrderItem {
     private Long id;
 
     @ManyToOne
-    @Column(name = "ORDER_ID")
+    @JoinColumn(name = "ORDER_ID")
     private Order order;
 
     @ManyToOne
-    @Column(name = "ITEM_ID")
+    @JoinColumn(name = "ITEM_ID")
     private Item item;
 
     private Integer price;
