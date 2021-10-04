@@ -1,8 +1,7 @@
 package me.study.jpa.hello.domain;
 
-public class EntityManagerRunner {
+public interface EntityManagerRunner {
 
-    public User userPersist(User user) {
-        return null;
-    }
+    public User userPersist(User user);
+
 }
