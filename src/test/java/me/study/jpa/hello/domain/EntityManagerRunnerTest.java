@@ -1,18 +1,19 @@
 package me.study.jpa.hello.domain;
 
-import me.study.jpa.hello.domain.testdouble.EntityManagerRunnerSpy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
+@DataJpaTest
 class EntityManagerRunnerTest {
 
     private EntityManagerRunner runner;
 
     @BeforeEach
     void test_init() {
-        runner = new EntityManagerRunnerSpy();
+        runner = new EntityManagerRunnerImpl();
     }
 
     @Test
@@ -23,9 +24,13 @@ class EntityManagerRunnerTest {
                 .build();
 
         // when
-
+        User userPersist = runner.userPersist(user);
 
         // then
+        assertSoftly(s -> {
+            s.assertThat(userPersist.getId()).isNotNull();
+            s.assertThat(userPersist.getName()).isEqualTo(user.getName());
+        });
 
     }
 }
