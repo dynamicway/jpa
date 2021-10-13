@@ -1,18 +1,33 @@
 package me.study.jpa.hello.domain;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
+
+@Component
+@RequiredArgsConstructor
 public class EntityManagerRunnerImpl implements EntityManagerRunner {
 
-    @PersistenceContext
-    EntityManager em;
+    @PersistenceUnit
+    private final EntityManagerFactory emf;
 
     @Override
     public User userPersist(User user) {
+        EntityManager em = emf.createEntityManager();
+
+        EntityTransaction transaction = em.getTransaction();
+
+        transaction.begin();
+
         em.persist(user);
-        em.flush();
-        return em.find(User.class, 1L);
+        User persistedUser = em.find(User.class, 1L);
+
+        em.close();
+
+        transaction.commit();
+
+        return persistedUser;
     }
 
 }
