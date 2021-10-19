@@ -1,6 +1,7 @@
 package me.study.jpa.inflearn.order;
 
 import lombok.Getter;
+import me.study.jpa.inflearn.delivery.Delivery;
 import me.study.jpa.inflearn.member.Member;
 
 import javax.persistence.*;
@@ -23,6 +24,10 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
 
     private ZonedDateTime orderDate;
 

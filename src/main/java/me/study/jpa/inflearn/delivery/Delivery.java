@@ -1,8 +1,8 @@
 package me.study.jpa.inflearn.delivery;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import me.study.jpa.inflearn.order.Order;
+
+import javax.persistence.*;
 
 @Entity
 public class Delivery {
@@ -18,6 +18,9 @@ public class Delivery {
     private String zipCode;
 
     private Status status;
+
+    @OneToOne(mappedBy = "delivery")
+    private Order order;
 
     public enum Status {
 
