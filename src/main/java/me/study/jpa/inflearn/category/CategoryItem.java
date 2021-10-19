@@ -1,5 +1,7 @@
 package me.study.jpa.inflearn.category;
 
+import me.study.jpa.inflearn.item.Item;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,6 @@ public class CategoryItem {
 
     @ManyToOne
     @JoinColumn(name = "ITEM_ID")
-    private CategoryItem item;
+    private Item item;
 
 }
