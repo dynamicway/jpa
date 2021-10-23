@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -30,4 +31,20 @@ public class EntityManagerRunnerImpl implements EntityManagerRunner {
         return persistedUser;
     }
 
+    @Override
+    public List<User> findAllUsers() {
+        EntityManager em = emf.createEntityManager();
+
+        EntityTransaction transaction = em.getTransaction();
+
+        transaction.begin();
+
+        List<User> users = em.createQuery("SELECT u FROM User u", User.class).getResultList();
+
+        em.close();
+
+        transaction.commit();
+
+        return users;
+    }
 }
