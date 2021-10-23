@@ -19,7 +19,7 @@ public class Delivery {
 
     private Status status;
 
-    @OneToOne(mappedBy = "delivery")
+    @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL, orphanRemoval = true)
     private Order order;
 
     public enum Status {
