@@ -1,0 +1,4 @@
+dependencies {
+    implementation project(':components:component-inflearn')
+    implementation project(':components:component-hello')
+}
