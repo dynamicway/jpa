@@ -1,5 +1,6 @@
 package me.study.jpa.inflearn.delivery;
 
+import me.study.jpa.inflearn.member.Address;
 import me.study.jpa.inflearn.order.Order;
 
 import javax.persistence.*;
@@ -11,11 +12,8 @@ public class Delivery {
     @GeneratedValue
     private Long id;
 
-    private String city;
-
-    private String street;
-
-    private String zipCode;
+    @Embedded
+    private Address address;
 
     private Status status;
 
