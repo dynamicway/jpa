@@ -1,4 +1,4 @@
 rootProject.name = 'jpa'
 
 include 'applications:app-inflearn'
-include 'components:component-hello', 'components:component-inflearn'
+include 'components:component-hello', 'components:component-inflearn', 'components:component-kotlin'

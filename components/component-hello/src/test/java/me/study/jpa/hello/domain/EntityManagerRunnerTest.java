@@ -1,5 +1,7 @@
 package me.study.jpa.hello.domain;
 
+import me.study.jpa.hello.domain.EntityManagerRunner;
+import me.study.jpa.hello.domain.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
