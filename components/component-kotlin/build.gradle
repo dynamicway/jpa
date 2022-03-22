@@ -1,2 +1,17 @@
 plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.6.10"
+    id "org.jetbrains.kotlin.plugin.spring" version "1.6.10"
+    id "org.jetbrains.kotlin.plugin.jpa" version "1.6.10"
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+}
+
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "11"
+    }
 }

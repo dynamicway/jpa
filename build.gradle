@@ -26,6 +26,12 @@ subprojects {
         mavenCentral()
     }
 
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
     if (["component-hello", "component-inflearn"].contains(project.name)) {
 
         dependencies {
@@ -33,9 +39,6 @@ subprojects {
             compileOnly 'com.h2database:h2'
             testImplementation 'com.h2database:h2'
             annotationProcessor 'org.projectlombok:lombok'
-            implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-            api 'org.springframework.boot:spring-boot-starter-web'
-            testImplementation 'org.springframework.boot:spring-boot-starter-test'
         }
     }
 
