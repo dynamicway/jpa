@@ -32,6 +32,19 @@ subprojects {
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
 
+    if (["component-hello", "component-inflearn"].contains(project.name)) {
+        bootJar { enabled = false }
+
+        dependencies {
+            compileOnly 'org.projectlombok:lombok'
+            compileOnly 'com.h2database:h2'
+            testImplementation 'com.h2database:h2'
+            annotationProcessor 'org.projectlombok:lombok'
+        }
+    }
+
 }
 
-
+configure([project('applications'), project('components')]) {
+    bootJar { enabled = false }
+}
