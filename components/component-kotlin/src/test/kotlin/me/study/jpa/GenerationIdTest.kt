@@ -40,12 +40,33 @@ internal class GenerationIdTest @Autowired constructor(
     @Test
     fun persist_without_transaction_not_throw_any_exception() {
         val order = Order()
+        order.name = "히히"
 
         assertThatCode { entityManager.persist(order) }
             .doesNotThrowAnyException()
 
-        assertThat(order.id).isNull()
         assertThat(entityManager.transaction.isActive).isFalse
+        entityManager.createQuery("SELECT id, name FROM Order WHERE name = '히히'")
+            .resultList.forEach {
+                if (it is Order)
+                    println(it.name)
+            }
+    }
+
+    @Test
+    fun persist_without_transaction_not_insert_entity_to_database() {
+        val order = Order()
+        val givenOrderName = "this is my name"
+        order.name = givenOrderName
+
+        entityManager.persist(order)
+        val orders = entityManager.createQuery("SELECT id, name FROM Order WHERE name = '히히'")
+            .resultList
+
+        assertThat(order.id).isNull()
+        assertThat(order.name).isEqualTo(givenOrderName)
+        assertThat(entityManager.transaction.isActive).isFalse
+        assertThat(orders).isEmpty()
     }
 
     @Test
