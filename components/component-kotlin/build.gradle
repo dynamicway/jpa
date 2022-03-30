@@ -9,11 +9,5 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-}
-
-compileKotlin {
-    kotlinOptions {
-        freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "11"
-    }
+    testImplementation 'com.h2database:h2'
 }
