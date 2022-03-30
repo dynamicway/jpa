@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityManager
 import javax.persistence.EntityManagerFactory
+import javax.persistence.PersistenceException
 
 @DataJpaTest
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
@@ -71,6 +72,15 @@ internal class GenerationIdTest @Autowired constructor(
         entityManager.clear()
 
         assertThat(entityManager.find(Order::class.java, 1L)).isNotNull
+    }
+
+    @Test
+    fun persist_throwsPersistenceException_when_the_entity_to_be_persisted_hasAnId() {
+        val order = Order(id = 100L)
+        entityManager.transaction.begin()
+        assertThatCode { entityManager.persist(order) }
+            .isInstanceOf(PersistenceException::class.java)
+            .hasMessageContaining("org.hibernate.PersistentObjectException: detached entity passed to persist")
     }
 
 }
