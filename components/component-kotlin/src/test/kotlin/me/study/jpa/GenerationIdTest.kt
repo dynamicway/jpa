@@ -2,14 +2,18 @@ package me.study.jpa
 
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatCode
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityManager
 import javax.persistence.EntityManagerFactory
 
 @DataJpaTest
+@Transactional(propagation = Propagation.NOT_SUPPORTED)
 internal class GenerationIdTest @Autowired constructor(
     private val entityManagerFactory: EntityManagerFactory
 ) {
@@ -17,9 +21,10 @@ internal class GenerationIdTest @Autowired constructor(
     private lateinit var entityManager: EntityManager
 
     @BeforeEach
-    internal fun setUp() {
-        entityManager = entityManagerFactory.createEntityManager()
-    }
+    internal fun setUp() { entityManager = entityManagerFactory.createEntityManager() }
+
+    @AfterEach
+    internal fun afterEach() { entityManager.close() }
 
     @Test
     fun getId_with_reflection_when_calls_Persist_before_transaction_committed() {
@@ -30,7 +35,6 @@ internal class GenerationIdTest @Autowired constructor(
         assertThat(order.id).isNotNull
 
         entityManager.transaction.commit()
-        entityManager.close()
     }
 
     @Test
@@ -42,6 +46,16 @@ internal class GenerationIdTest @Autowired constructor(
 
         assertThat(order.id).isNull()
         assertThat(entityManager.transaction.isActive).isFalse
+    }
+
+    @Test
+    fun find_without_transaction() {
+        entityManager.transaction.begin()
+        entityManager.persist(Order())
+        entityManager.transaction.commit()
+        entityManager.clear()
+
+        assertThat(entityManager.find(Order::class.java, 1L)).isNotNull
     }
 
 }
